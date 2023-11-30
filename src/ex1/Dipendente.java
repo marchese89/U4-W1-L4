@@ -1,6 +1,10 @@
 package ex1;
 
+import java.text.DecimalFormat;
+
 public class Dipendente {
+
+    DecimalFormat formatoDecimali = new DecimalFormat("#.##");
     public double stipendioBase = 1000;
 
     private int matricola;
@@ -51,5 +55,40 @@ public class Dipendente {
 
     public Dipartimento getDipartimento() {
         return dipartimento;
+    }
+
+    public void stampaDatiDipendente(){
+        System.out.println("Dati dipendente");
+        System.out.println("matricola: "+formatoDecimali.format(this.matricola));
+        System.out.println("stipendio: "+formatoDecimali.format(this.stipendio));
+        System.out.println("importo orario straordinario: "+formatoDecimali.format(importoOrarioStraordinario));
+        System.out.println("livello: "+this.livello);
+        System.out.println("dipartimento: "+ this.dipartimento);
+    }
+
+    public Livello promuovi(){
+        if(this.livello == Livello.OPERARIO){
+            this.livello = Livello.IMPIEGATO;
+            this.stipendio = this.stipendioBase*1.2;
+        }
+        if(this.livello == Livello.IMPIEGATO){
+            this.livello = Livello.QUADRO;
+            this.stipendio = this.stipendioBase*1.5;
+        }
+        if(this.livello == Livello.QUADRO){
+            this.livello = Livello.DIRIGENTE;
+            this.stipendio = this.stipendioBase*2;
+        }
+        if(this.livello == Livello.DIRIGENTE){
+            System.out.println("ERRORE! non si può salire di livello!");
+        }
+        return this.livello;
+    }
+
+    public static double calcolaPaga(Dipendente d){
+        return d.getStipendio();
+    }
+    public static double calcolaPaga(Dipendente d, int oreStraordinario){
+        return d.stipendio+(oreStraordinario*d.importoOrarioStraordinario);
     }
 }
