@@ -1,10 +1,10 @@
-package ex1;
+package ex1_ex2;
 
 import java.text.DecimalFormat;
 
 public class Dipendente {
 
-    DecimalFormat formatoDecimali = new DecimalFormat("#.##");
+    public static DecimalFormat formatoDecimali = new DecimalFormat("#.##");
     public double stipendioBase = 1000;
 
     private int matricola;
@@ -67,20 +67,20 @@ public class Dipendente {
     }
 
     public Livello promuovi(){
-        if(this.livello == Livello.OPERARIO){
+        if(this.getLivello() == Livello.OPERARIO){
             this.livello = Livello.IMPIEGATO;
             this.stipendio = this.stipendioBase*1.2;
         }
-        if(this.livello == Livello.IMPIEGATO){
+        else if(this.getLivello() == Livello.IMPIEGATO){
             this.livello = Livello.QUADRO;
             this.stipendio = this.stipendioBase*1.5;
         }
-        if(this.livello == Livello.QUADRO){
+        else if(this.getLivello() == Livello.QUADRO){
             this.livello = Livello.DIRIGENTE;
             this.stipendio = this.stipendioBase*2;
         }
-        if(this.livello == Livello.DIRIGENTE){
-            System.out.println("ERRORE! non si può salire di livello!");
+        else if(this.getLivello() == Livello.DIRIGENTE){
+            System.out.println("ERRORE! non si può salire di livello! "+this.livello);
         }
         return this.livello;
     }
